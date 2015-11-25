@@ -1,6 +1,6 @@
 # phaser-p2Helper
 
-phaser-p2Helper makes it easy to keep track and manage p2 physics object interactions. It is an advanced helper to keep track on the objects between the onBeginContact and onEndContact signal.
+phaser-p2Helper makes it easy to keep track and manage p2.js physics object interactions. It is an advanced helper to keep track on the objects between the onBeginContact and onEndContact signal.
 
 ![div](https://raw.github.com/Weedshaker/phaser-p2Helper/master/img/screenShot1_20151125.jpg)
 
@@ -23,8 +23,8 @@ It has turned out a 100% reliable, when avoiding sleep for the tracked body.
 
 First check out "phaser-examples/examples/input/virtual gamecontroller.js"
 
-1. Load <script type="text/javascript" src="JavaScript/phaser-p2Helper.js"></script>
-2. Create a new OnContact object [example name: shapes]
-3. Execute shapes.create with your preferences
+1. Load &lt;script type=&quot;text/javascript&quot; src=&quot;JavaScript/phaser-p2Helper.js&quot;&gt;&lt;/script&gt;
+2. Create a new OnContact object [example name: shapes = new OnContact()]
+3. Execute shapes.create() with your preferences
 4. Manually add the shapes.pushShape/spliceShape functions to your onBeginContact/onEndContact functions or simply use shapes.attach(this.yourEntity)
-5. Keep track on the contacts your object is having by checking shapes.shapeCont.direction.accuracy.length (example: "shapes.shapeCont.bottom.realtime")
+5. Keep track on the contacts your object is having by checking shapes.shapeCont.direction.accuracy.length (example: "shapes.shapeCont.bottom.realtime.length")
