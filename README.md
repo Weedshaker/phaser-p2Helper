@@ -28,3 +28,8 @@ First check out "phaser-examples/examples/input/virtual gamecontroller.js"
 3. Execute shapes.create() with your preferences
 4. Manually add the shapes.pushShape/spliceShape functions to your onBeginContact/onEndContact functions or simply use shapes.attach(this.yourEntity)
 5. Keep track on the contacts your object is having by checking shapes.shapeCont.direction.accuracy.length (example: "shapes.shapeCont.bottom.realtime.length")
+
+## jsfiddle
+
+<a href="https://jsfiddle.net/Weedshaker/0avdj346/" target="_blank">https://jsfiddle.net/Weedshaker/0avdj346/</a><br>
+<a href="https://jsfiddle.net/Weedshaker/0avdj346/embedded/result/" target="_blank">full screen</a>
