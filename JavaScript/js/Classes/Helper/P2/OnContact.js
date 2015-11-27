@@ -4,7 +4,6 @@
  *
  *  (c) 2014 Silvan Strübi, http://shoga9team.com
  *
- *  All rights reserved
  ***************************************************************/
  /*jshint esnext: true */
 
@@ -26,7 +25,7 @@ class OnContact extends MasterOnContact {
 			top: {},
 			right: {},
 			bottom: {
-				delayed: new Map([['onBegin', 0], ['onEnd', 150]])
+				delayed: new Map([['onBegin', 0], ['onEnd', 1050]])
 			},
 			left: {},
 			on: {}

@@ -4,7 +4,6 @@
  *
  *  (c) 2014 Silvan Strübi, http://shoga9team.com
  *
- *  All rights reserved
  ***************************************************************/
 /*jshint esnext: true */
 
@@ -27,8 +26,8 @@ var MasterOnContact = (function () {
 
         _classCallCheck(this, MasterOnContact);
 
-        this.game = game;
-        this.parent = parent;
+        this.game = game; // skip the game reference if you want to use setTimeout instead of this.game.time.events.add
+        this.parent = parent; // only used if you need a reference to your parent object
 
         this.shapeCont = {}; // container keeping the shapes
         this.indexByShapeID = new Map(); // index giving access to shapeCont location by shape.id
@@ -200,6 +199,10 @@ var MasterOnContact = (function () {
                         this.game.time.events.add(this.time[direction][arrayName].get('onBegin'), function () {
                             _this3._push(body, shapeA, shapeB, equation, direction, arrayName);
                         });
+                    } else {
+                        setTimeout(function () {
+                            _this3._push(body, shapeA, shapeB, equation, direction, arrayName);
+                        }, this.time[direction][arrayName].get('onBegin'));
                     }
                 } else {
                     this._push(body, shapeA, shapeB, equation, direction, arrayName);
@@ -253,6 +256,10 @@ var MasterOnContact = (function () {
                         this.game.time.events.add(this.time[direction][arrayName].get('onEnd'), function () {
                             _this5._splice(body, shapeA, shapeB, direction, arrayName);
                         });
+                    } else {
+                        setTimeout(function () {
+                            _this5._splice(body, shapeA, shapeB, direction, arrayName);
+                        }, this.time[direction][arrayName].get('onEnd'));
                     }
                 } else {
                     this._splice(body, shapeA, shapeB, direction, arrayName);
@@ -294,7 +301,6 @@ var MasterOnContact = (function () {
  *
  *  (c) 2014 Silvan Strübi, http://shoga9team.com
  *
- *  All rights reserved
  ***************************************************************/
 /*jshint esnext: true */
 
@@ -333,7 +339,7 @@ var OnContact = (function (_MasterOnContact) {
 			top: {},
 			right: {},
 			bottom: {
-				delayed: new Map([['onBegin', 0], ['onEnd', 150]])
+				delayed: new Map([['onBegin', 0], ['onEnd', 1050]])
 			},
 			left: {},
 			on: {}

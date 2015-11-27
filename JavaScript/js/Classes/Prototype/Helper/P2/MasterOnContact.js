@@ -4,7 +4,6 @@
  *
  *  (c) 2014 Silvan Strübi, http://shoga9team.com
  *
- *  All rights reserved
  ***************************************************************/
 /*jshint esnext: true */
 
@@ -14,8 +13,8 @@
 // It gives the option to define custom logic when an object gets added and what to execute on adding and removing
 class MasterOnContact {
 	constructor(game = false, parent = false){
-		this.game = game;
-        this.parent = parent;
+		this.game = game; // skip the game reference if you want to use setTimeout instead of this.game.time.events.add
+        this.parent = parent; // only used if you need a reference to your parent object
 
         this.shapeCont = {}; // container keeping the shapes
         this.indexByShapeID = new Map(); // index giving access to shapeCont location by shape.id
@@ -111,6 +110,8 @@ class MasterOnContact {
                     this.game.time.events.add(this.time[direction][arrayName].get('onBegin'), () => {
                         this._push(body, shapeA, shapeB, equation, direction, arrayName);
                     });
+                }else{
+                    setTimeout(() => {this._push(body, shapeA, shapeB, equation, direction, arrayName);}, this.time[direction][arrayName].get('onBegin'));
                 }
             }else{
                 this._push(body, shapeA, shapeB, equation, direction, arrayName);
@@ -152,6 +153,8 @@ class MasterOnContact {
                     this.game.time.events.add(this.time[direction][arrayName].get('onEnd'), () => {
                         this._splice(body, shapeA, shapeB, direction, arrayName);
                     });
+                }else{
+                    setTimeout(() => {this._splice(body, shapeA, shapeB, direction, arrayName);}, this.time[direction][arrayName].get('onEnd'));
                 }
             }else{
                 this._splice(body, shapeA, shapeB, direction, arrayName);
