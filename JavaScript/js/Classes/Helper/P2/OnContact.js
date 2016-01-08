@@ -32,27 +32,27 @@ class OnContact extends MasterOnContact {
 		};
 		// functions must be represented by an object with the same key inside this.time to take effect and vice versa to validate entry into shapeCont
 		this.pushCheckFunctions = new Map([
-			['top', (body, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[1] > this.minPointContact;}],
-			['right', (body, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[0] < -this.minPointContact;}],
-			['bottom', (body, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[1] < -this.minPointContact;}],
-			['left', (body, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[0] > this.minPointContact;}],
-			['on', (body, shapeA, shapeB, shapeB_material_name, equation) => {return true;}]
+			['top', (bodyA, bodyB, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[1] > this.minPointContact;}],
+			['right', (bodyA, bodyB, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[0] < -this.minPointContact;}],
+			['bottom', (bodyA, bodyB, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[1] < -this.minPointContact;}],
+			['left', (bodyA, bodyB, shapeA, shapeB, shapeB_material_name, equation) => {return equation[0].contactPointA[0] > this.minPointContact;}],
+			['on', (bodyA, bodyB, shapeA, shapeB, shapeB_material_name, equation) => {return true;}]
 			]);
 		// functions must be represented by an object with the same key inside this.time to take effect
 		this.pushEventFunctions = new Map([
-			['top', (body, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
-			['right', (body, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
-			['bottom', (body, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
-			['left', (body, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
-			['on', (body, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}]
+			['top', (bodyA, bodyB, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
+			['right', (bodyA, bodyB, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
+			['bottom', (bodyA, bodyB, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
+			['left', (bodyA, bodyB, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}],
+			['on', (bodyA, bodyB, shapeA, shapeB, equation, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - pushed - ' + arrayName);}]
 			]);
 		// functions must be represented by an object with the same key inside this.time to take effect
 		this.spliceEventFunctions = new Map([
-			['top', (body, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
-			['right', (body, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
-			['bottom', (body, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
-			['left', (body, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
-			['on', (body, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}]
+			['top', (bodyA, bodyB, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
+			['right', (bodyA, bodyB, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
+			['bottom', (bodyA, bodyB, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
+			['left', (bodyA, bodyB, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}],
+			['on', (bodyA, bodyB, shapeA, shapeB, array, direction, arrayName) => {console.log(direction + ' - id: ' + shapeB.id + ' - spliced - ' + arrayName);}]
 			]);
 	}
 	// INDEPENTENT FROM FUNCTIONS ABOVE! But convenient to use in conjunction with check functions, use this to set special properties to shapes

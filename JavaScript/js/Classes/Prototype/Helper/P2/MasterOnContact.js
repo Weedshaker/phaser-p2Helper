@@ -7,18 +7,14 @@
  ***************************************************************/
 /*jshint esnext: true */
 
-// !!! IMPORTANT !!! [NOTE:] body gets an onEndContact event when fallen asleep, if body allowSleep not deactivated. Prevent this by setting: "this.entity.body.allowSleep = false;" or use NarrowphaseOnContact
-
-// This Helper basically keeps objects - included onBeginContact and excluded after onEndContact, this way you can know when a contact is existent.
-// It gives the option to define custom logic when an object gets added and what to execute on adding and removing
 class MasterOnContact {
-	constructor(game = false, parent = false){
-		this.game = game; // skip the game reference if you want to use setTimeout instead of this.game.time.events.add
+    constructor(game = false, parent = false){
+        this.game = game; // skip the game reference if you want to use setTimeout instead of this.game.time.events.add
         this.parent = parent; // only used if you need a reference to your parent object
 
         this.shapeCont = {}; // container keeping the shapes
         this.indexByShapeID = new Map(); // index giving access to shapeCont location by shape.id
-	}
+    }
     create(timeObject = false, pushCheckFunctionsMap = false, pushEventFunctionsMap = false, spliceEventFunctionsMap = false, addRealtime = true){
         // vars
         if(timeObject){
@@ -58,13 +54,13 @@ class MasterOnContact {
         entity.body.onBeginContact.add(this.onBeginContact, this);
         entity.body.onEndContact.add(this.onEndContact, this);
     }
-    onBeginContact(body, shapeA, shapeB, equation){
-        this.pushShape(body, shapeA, shapeB, equation);
+    onBeginContact(bodyA, bodyB, shapeA, shapeB, equation){
+        this.pushShape(bodyA, bodyB, shapeA, shapeB, equation);
     }
-    onEndContact(body, shapeA, shapeB){
-        this.spliceShape(body, shapeA, shapeB);
+    onEndContact(bodyA, bodyB, shapeA, shapeB){
+        this.spliceShape(bodyA, bodyB, shapeA, shapeB);
     }
-    pushShape(body, shapeA, shapeB, equation, arrayName = false){ // not all variables are used by push but maybe by custom this.pushCheckFunctions
+    pushShape(bodyA, bodyB, shapeA, shapeB, equation, arrayName = false){ // not all variables are used by push but maybe by custom this.pushCheckFunctions
         // direction of contact for sorting
         let directions = [];
         if(typeof equation === 'string' && equation in this.shapeCont){
@@ -76,7 +72,7 @@ class MasterOnContact {
             }
             for(let [key, value] of this.pushCheckFunctions){
                 // execute each function
-                if(value(body, shapeA, shapeB, shapeB_material_name, equation)){
+                if(value(bodyA, bodyB, shapeA, shapeB, shapeB_material_name, equation)){
                     directions.push(key);
                 }
             }
@@ -93,32 +89,32 @@ class MasterOnContact {
             directions.forEach((direction) => {
                 if(!arrayName){
                     for(let key in this.shapeCont[direction]){
-                        this._pushShape(body, shapeA, shapeB, equation, direction, key);
+                        this._pushShape(bodyA, bodyB, shapeA, shapeB, equation, direction, key);
                     }
                 }else{
-                    this._pushShape(body, shapeA, shapeB, equation, direction, arrayName);
+                    this._pushShape(bodyA, bodyB, shapeA, shapeB, equation, direction, arrayName);
                 }
             });
         }
     }
-    _pushShape(body, shapeA, shapeB, equation, direction, arrayName){
+    _pushShape(bodyA, bodyB, shapeA, shapeB, equation, direction, arrayName){
         if(this.shapeCont[direction][arrayName]){
             // delayed handling
             if(this.time[direction][arrayName].get('onBegin') > 0){
                 // remove it after the timer (this avoids flickering where sometimes the ground has no contact for couple mil seconds)
                 if(this.game){
                     this.game.time.events.add(this.time[direction][arrayName].get('onBegin'), () => {
-                        this._push(body, shapeA, shapeB, equation, direction, arrayName);
+                        this._push(bodyA, bodyB, shapeA, shapeB, equation, direction, arrayName);
                     });
                 }else{
-                    setTimeout(() => {this._push(body, shapeA, shapeB, equation, direction, arrayName);}, this.time[direction][arrayName].get('onBegin'));
+                    setTimeout(() => {this._push(bodyA, bodyB, shapeA, shapeB, equation, direction, arrayName);}, this.time[direction][arrayName].get('onBegin'));
                 }
             }else{
-                this._push(body, shapeA, shapeB, equation, direction, arrayName);
+                this._push(bodyA, bodyB, shapeA, shapeB, equation, direction, arrayName);
             }
         }
     }
-    spliceShape(body, shapeA, shapeB, arrayName = false){
+    spliceShape(bodyA, bodyB, shapeA, shapeB, arrayName = false){
         let indexByShapeID_element = this.indexByShapeID.get(shapeB.id);
         if(indexByShapeID_element){
             let directionResult = [];
@@ -128,10 +124,10 @@ class MasterOnContact {
                     directionResult.push(direction);
                     if(!arrayName){
                         for(let key in this.shapeCont[direction]){
-                            this._spliceShape(body, shapeA, shapeB, direction, key);
+                            this._spliceShape(bodyA, bodyB, shapeA, shapeB, direction, key);
                         }
                     }else{
-                        this._spliceShape(body, shapeA, shapeB, direction, arrayName);
+                        this._spliceShape(bodyA, bodyB, shapeA, shapeB, direction, arrayName);
                     }
                 }
             });
@@ -144,41 +140,41 @@ class MasterOnContact {
             });
         }
     }
-    _spliceShape(body, shapeA, shapeB, direction, arrayName){
+    _spliceShape(bodyA, bodyB, shapeA, shapeB, direction, arrayName){
         if(this.shapeCont[direction][arrayName]){
             // delayed handling
             if(this.time[direction][arrayName].get('onEnd') > 0){
                 // remove it after the timer (this avoids flickering where sometimes the ground has no contact for couple mil seconds)
                 if(this.game){
                     this.game.time.events.add(this.time[direction][arrayName].get('onEnd'), () => {
-                        this._splice(body, shapeA, shapeB, direction, arrayName);
+                        this._splice(bodyA, bodyB, shapeA, shapeB, direction, arrayName);
                     });
                 }else{
-                    setTimeout(() => {this._splice(body, shapeA, shapeB, direction, arrayName);}, this.time[direction][arrayName].get('onEnd'));
+                    setTimeout(() => {this._splice(bodyA, bodyB, shapeA, shapeB, direction, arrayName);}, this.time[direction][arrayName].get('onEnd'));
                 }
             }else{
-                this._splice(body, shapeA, shapeB, direction, arrayName);
+                this._splice(bodyA, bodyB, shapeA, shapeB, direction, arrayName);
             }
             return true; // this should be inside the (index > -1) check to make sure it was removed but most likely is accurate this way, too. It has been moved here to make onBegin time delays accurate
         }
         return false;
     }
-    _push(body, shapeA, shapeB, equation, direction, arrayName){
+    _push(bodyA, bodyB, shapeA, shapeB, equation, direction, arrayName){
         this.shapeCont[direction][arrayName].push(shapeB);
         // functions to execute
         let pushEventFunction = this.pushEventFunctions.get(direction);
         if(pushEventFunction){
-            pushEventFunction(body, shapeA, shapeB, equation, this.shapeCont[direction][arrayName], direction, arrayName);
+            pushEventFunction(bodyA, bodyB, shapeA, shapeB, equation, this.shapeCont[direction][arrayName], direction, arrayName);
         }
     }
-    _splice(body, shapeA, shapeB, direction, arrayName){
+    _splice(bodyA, bodyB, shapeA, shapeB, direction, arrayName){
         let index = this.shapeCont[direction][arrayName].indexOf(shapeB);
         if(index > -1){
             this.shapeCont[direction][arrayName].splice(index, 1);
             // functions to execute
             let spliceEventFunction = this.spliceEventFunctions.get(direction);
             if(spliceEventFunction){
-                spliceEventFunction(body, shapeA, shapeB, this.shapeCont[direction][arrayName], direction, arrayName);
+                spliceEventFunction(bodyA, bodyB, shapeA, shapeB, this.shapeCont[direction][arrayName], direction, arrayName);
             }
         }
     }
