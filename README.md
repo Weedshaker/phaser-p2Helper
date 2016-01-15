@@ -37,4 +37,5 @@ First check out "phaser-examples/examples/input/virtual gamecontroller.js"
 ## Update
 
 ES6 files (phaser-p2Helper/JavaScript/js/Classes/...) updated to match new requirements. See: https://github.com/photonstorm/phaser/blob/master/CHANGELOG.md#p2js-upgraded-to-version-070
+
 NOTE: I didn't update the compiled file phaser-p2Helper/JavaScript/phaser-p2Helper.js, to not break the demo, which utilizes Phaser 2.0.3 and a version of p2.js before 0.7.0.

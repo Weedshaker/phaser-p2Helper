@@ -1,8 +1,7 @@
 /***************************************************************
  *
- *  Copyright notice
  *
- *  (c) 2014 Silvan Strübi, http://shoga9team.com
+ *  2016 Silvan Strübi, http://shoga9team.com
  *
  ***************************************************************/
 /*jshint esnext: true */
