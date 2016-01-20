@@ -17,7 +17,7 @@ var Classes_Domain = [
 
 // concat output
 gulp.task('js_live', function () {
-	gulp.src(Classes_Prototype.concat(Classes_Domain)).pipe(babel()).pipe(concat('phaser-p2Helper.js')).pipe(gulp.dest('../'));
+	gulp.src(Classes_Prototype.concat(Classes_Domain)).pipe(babel()).pipe(concat('phaser-p2HelperUpdated.js')).pipe(gulp.dest('../'));
 });
 
 // tasks to call

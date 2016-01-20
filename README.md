@@ -23,7 +23,7 @@ It has turned out a 100% reliable, when avoiding sleep for the tracked body.
 
 First check out "phaser-examples/examples/input/virtual gamecontroller.js"
 
-1. Load &lt;script type=&quot;text/javascript&quot; src=&quot;JavaScript/phaser-p2Helper.js&quot;&gt;&lt;/script&gt;
+1. Load &lt;script type=&quot;text/javascript&quot; src=&quot;JavaScript/phaser-p2HelperUpdated.js&quot;&gt;&lt;/script&gt;
 2. Create a new OnContact object [example name: shapes = new OnContact()]
 3. Execute shapes.create() with your preferences
 4. Manually add the shapes.pushShape/spliceShape functions to your onBeginContact/onEndContact functions or simply use shapes.attach(this.yourEntity)
@@ -36,6 +36,6 @@ First check out "phaser-examples/examples/input/virtual gamecontroller.js"
 
 ## Update
 
-ES6 files (phaser-p2Helper/JavaScript/js/Classes/...) updated to match new requirements. See: https://github.com/photonstorm/phaser/blob/master/CHANGELOG.md#p2js-upgraded-to-version-070
+ES6 files (phaser-p2Helper/JavaScript/js/Classes/...) & (phaser-p2Helper/JavaScript/phaser-p2HelperUpdated.js) updated to match new requirements. See: https://github.com/photonstorm/phaser/blob/master/CHANGELOG.md#p2js-upgraded-to-version-070
 
-NOTE: I didn't update the compiled file phaser-p2Helper/JavaScript/phaser-p2Helper.js, to not break the demo, which utilizes Phaser 2.0.3 and a version of p2.js before 0.7.0.
+NOTE: I didn't update the compiled file phaser-p2Helper/JavaScript/phaser-p2Helper.js, to not break the demo, which utilizes Phaser 2.0.3 and a version of p2.js before 0.7.0. PLEASE USE => phaser-p2Helper/JavaScript/phaser-p2HelperUpdated.js, if you are using Phaser 2.4 and above!
